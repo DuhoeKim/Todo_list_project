@@ -21,18 +21,42 @@
     width:4rem;
   }
 
+  .listfont {
+    font-family: 'Gamja Flower', cursive;
+  }
+
   input{
     outline:none;
   }
 {% endblock css %}
 
 {% block content %}
-  <div class="row justify-content-center">
+
+  <div class="row justify-content-center mb-5">
     <p class="text-center headtitle m-5 text-white text-outline"> TODO-LIST</p>
-    <form class="d-flex justify-content-center" action="" method="POST">
+    <form class="d-flex justify-content-center" action="{% url 'lists:create' %}" method="POST">
       {% csrf_token %}
-      <input class="col-7 border rounded-pill border-3 border-dark wording-box bg-white text-center" type="text" autofocus>
-      <button class="mx-1 border border-3 border-dark rounded-pill submit-button bg-white"></button>
+      <input class="col-7 border rounded-pill border-3 border-dark wording-box bg-white text-center listfont fs-4 fw-bold" type="text" autofocus maxlength="100" placeholder="해야할 일을 입력해보세요!" name="todo" autocomplete='off'>
+      <button class="mx-1 border border-3 border-dark rounded-pill submit-button bg-white"><i class="fas fa-plus fs-4"></i></button>
     </form>
   </div>
-{% endblock content %} 
+
+  <div class="row justify-content-center">
+    {% if lists %}
+      <div class="col-7 list-group pe-0">
+        {% for list in lists %}
+          <li type="button" class="d-flex justify-content-center align-items-center list-group-item list-group-item-action border rounded-pill border-3 border-dark mb-1">
+            <p class="ms-auto mb-0 fs-4 fw-bold listfont">
+              {{ list.todo }}
+            </p>
+            <form class="ms-auto" action="{% url 'lists:delete' list.pk %}" method="POST">
+              {% csrf_token %}
+              <button class="btn-close" aria-label="Close"></button>
+            </form>
+          </li>
+        {% endfor %}
+      </div>
+    {% endif %}
+  </div>
+
+{% endblock content %}
