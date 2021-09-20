@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% block css %}
+  .headtitle {
+    font-size: 8rem;
+    font-family: 'Black Han Sans', sans-serif;
+  }
+  .wording-box{
+    height: 3.5rem;
+  }
+
+  .text-outline {
+      color: #f00;
+      text-shadow:
+      -3px -3px 0 #000,
+      3px -3px 0 #000,
+      -3px 3px 0 #000,
+      3px 3px 0 #000;  
+  }
+
+  .submit-button{
+    width:4rem;
+  }
+
+  input{
+    outline:none;
+  }
+{% endblock css %}
+
+{% block content %}
+  <div class="row justify-content-center">
+    <p class="text-center headtitle m-5 text-white text-outline"> TODO-LIST</p>
+    <form class="d-flex justify-content-center" action="" method="POST">
+      {% csrf_token %}
+      <input class="col-7 border rounded-pill border-3 border-dark wording-box bg-white text-center" type="text" autofocus>
+      <button class="mx-1 border border-3 border-dark rounded-pill submit-button bg-white"></button>
+    </form>
+  </div>
+{% endblock content %} 
