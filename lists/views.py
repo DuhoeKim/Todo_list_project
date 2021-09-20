@@ -23,6 +23,6 @@ def create(request):
 @require_POST
 def delete(request, pk):
     if request.method == "POST":
-        todolist = List(pk=pk)
+        todolist = List.objects.get(pk=pk)
         todolist.delete()
     return redirect('lists:index')
