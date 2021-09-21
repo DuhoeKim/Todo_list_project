@@ -28,6 +28,12 @@
   input{
     outline:none;
   }
+
+  .form-check-input:checked + .form-checked-content {
+    text-decoration: line-through;
+    opacity:.5;
+  }
+
 {% endblock css %}
 
 {% block content %}
@@ -45,15 +51,16 @@
     {% if lists %}
       <div class="col-7 list-group pe-0">
         {% for list in lists %}
-          <li type="button" class="d-flex justify-content-center align-items-center list-group-item list-group-item-action border rounded-pill border-3 border-dark mb-1">
-            <p class="ms-auto mb-0 fs-4 fw-bold listfont">
+          <a type="button" class="d-flex justify-content-center align-items-center list-group-item list-group-item-action border rounded-pill border-3 border-dark mb-1">
+            <input class="form-check-input m-0 border border-3 border-dark" type="checkbox" value="" style="font-size: 1.5rem;">
+            <p class="ms-auto mb-0 fs-4 fw-bold listfont form-checked-content">
               {{ list.todo }}
             </p>
             <form class="ms-auto" action="{% url 'lists:delete' list.pk %}" method="POST">
               {% csrf_token %}
               <button class="btn-close" aria-label="Close"></button>
             </form>
-          </li>
+          </a>
         {% endfor %}
       </div>
     {% endif %}
