@@ -10,15 +10,23 @@
 
 
 
-## 프로젝트 개요
+## 프로젝트 개요 
 
-사실 이전부터 진행해보고 싶었던 프로젝트 중 하나였다.
+ 첫 토이프로젝트로 Todo-List를 선택한 이유는 다음과 같다.
 
-워낙 게으른 성격이기도하고, 해야할 일을 잘 까먹어서 스마트폰의 todo list 앱을 다운받아서 사용했었는데, 내가 원하는 기능이 없어서 불편했다.
+1. 개발 초보들의 첫 프로젝트로 가장 보편적이고 쉬운 프로젝트로 잘 알려져있어서 선택하였다. 
 
-이제는 내가 개발을 배우고 있으니 원하는 기능을 직접 만들어 사용하자! 라는 생각으로 프로젝트를 결정하였다.
+   교육과정 중에 무리가 가지않으면서도, 내가 배운 것들을 적절히 이용할 수 있는 프로젝트로 딱이라고 생각했다. 
 
-> 그리고 직접 만들어 쓰면 더 자주 이용하겠지 하는 마음으로.. ㅎㅎ ...
+   쉽고 남들이 다 한번 쯤은 해보는 프로젝트지만, 기능을 추가해 나가면서 살을 붙여가면 좋은 웹 앱으로 발전시킬 수 있을 것이라고 믿어 의심치 않는다! 
+
+2. 다른 Todo-List를 사용했을 때 불편하다는 생각을 자주 했었다. 
+
+   워낙 게으른 탓에 Todo-List를 사용하였었는데, Todo-List를 작성하는 것 마저 귀찮더라.. 
+
+   그래서, Todo-List에도 자동화 기능을 추가할 수 있으면 좋겠다는 생각을 했었다. 많이 사용해본 만큼 좋은 서비스를 만들어 낼 수 있을 것이라고 생각한다.  
+
+   >  그리고 직접 만들어 쓰면 더 자주 이용하겠지 하는 마음으로.. ㅎㅎ ...
 
 
 
@@ -33,17 +41,66 @@
 
 
 
-
-
 # V 1.0.1
 
+### 결과물
+
+![image-20210921200517849](README.assets/image-20210921200517849.png)
+
+> 할일을 완료할 시 체크를 통해서 line-through 되는 효과를 구현하였다. 
+>
+> 문제는 새로고침시 날아간다.. cookie나 session 을 통해서 처리해야할 것 같은데 아직은 어떻게 하는지 모르겠다.. 
+>
+> 구글링을 해보니 js를 이용해야하더라 ㅠㅠㅠ 공부가 필요한 부분인 것 같다..
+>
+>  
+>
+> 우측하단에는 투두리스트의 상단으로 바로 갈 수 있는 버튼을 구현하였다. 
+>
+> 이것도 js 를 통해서 구현해야하는 건 줄 알았지만 a tag로 간단하게 구현이 가능한 기능이었다. 굳굳
 
 
 
+### 맨위로 가기 버튼 추가
+
+![image-20210921200905298](README.assets/image-20210921200905298.png)
+
+```html
+<a class="fixed-bottom m-5 ms-auto d-flex bg-white border rounded-circle border-3 border-dark circle justify-content-center align-items-center text-decoration-none text-dark fs-4" href="#"><i class="fas fa-arrow-up"></i></a>
+```
+
+* base.html에 코드 추가
+  * 처음의 걱정과는 다르게 단 한줄의 코드로 생성할 수 있었다. 
+  * 그냥 a tag를 통해서 현재페이지로 redirect 시키는 느낌으로 구현하면 되는 초간단 기능..
+* fixed 를 통해 사용자가 어떤 화면을 보고있든 우측하단에 고정될 수 있도록 하였다.
 
 
 
+### 체크박스 기능 추가
 
+![image-20210921202533453](README.assets/image-20210921202533453.png)
+
+```django
+  
+# CSS
+  .form-check-input:checked + .form-checked-content {
+    text-decoration: line-through;
+    opacity:.5;
+  }
+
+# 코드 추가 내용
+<input class="form-check-input m-0 border border-3 border-dark" type="checkbox" value="" style="font-size: 1.5rem;">
+<p class="ms-auto mb-0 fs-4 fw-bold listfont form-checked-content">
+    {{ list.todo }}
+</p>
+```
+
+* :checked 가상 선택자를 이용하여 체크 시 줄이 쳐지는 기능을 구현하였다.
+  * 여기에는 치명적인 문제점이 하나 존재하는데, 새로고침을 할 경우 기존의 체크가 반영이 되지 않는 다는 것이다... 
+  * 아직까지 이를 해결할 명확한 아이디어가 없어서 고민이다. 
+    * 구글링을 통해 알아보니 JS를 이용해야하는 것 같다.. ㅠㅠ 
+
+***
 
 
 
